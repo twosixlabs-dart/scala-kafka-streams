@@ -26,6 +26,7 @@ class ExampleStreamProcessor( val properties : Properties ) {
 
         val builder = new StreamsBuilder
         builder.stream( "stream.in" ).mapValues( message => {
+            LOG.info( s"processing message : ${message.id}" )
             message.copy( breadcrumbs = message.breadcrumbs :+ "scala-kafka-streams" )
         } ).to( "stream.out" )
 
